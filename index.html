@@ -40,7 +40,27 @@ nav{align-items:center}nav a{white-space:nowrap}.hero-inner{padding-bottom:55px}
 <div class="mcteam"><strong>POSADA</strong><span class="mcscore">VS</span><strong>SINISCOLA</strong></div>
 <p style="text-align:center">Sabato 14 novembre 2026 • Ore 15:00</p>
 <p style="text-align:center">Stadio Comunale di Posada</p>
-<a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Stadio%20Comunale%20Posada%20Sardegna" target="_blank" rel="noopener noreferrer">📍 POSIZIONE DEL CAMPO</a>
+<div id="conto-partita" style="text-align:center;background:#0b2850;border-radius:12px;padding:16px;margin:18px 0;color:white">
+<div style="color:#8bcaff;font-weight:bold;margin-bottom:10px">⏳ AL FISCHIO D'INIZIO MANCANO</div>
+<div id="tempo-partita" style="font-size:23px;font-weight:900;color:white">Caricamento...</div>
+</div>
+<script>
+(function(){
+const fine=new Date("2026-11-14T15:00:00+01:00").getTime();
+const el=document.getElementById("tempo-partita");
+function aggiorna(){
+const t=Math.max(0,fine-Date.now());
+if(t===0){el.textContent="⚽ È IL GIORNO DELLA PARTITA!";return}
+const g=Math.floor(t/86400000);
+const h=Math.floor(t/3600000)%24;
+const m=Math.floor(t/60000)%60;
+const s=Math.floor(t/1000)%60;
+el.textContent=g+" GIORNI • "+h+" ORE • "+m+" MIN • "+s+" SEC";
+}
+aggiorna();setInterval(aggiorna,1000);
+})();
+</script>
+  <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Stadio%20Comunale%20Posada%20Sardegna" target="_blank" rel="noopener noreferrer">📍 POSIZIONE DEL CAMPO</a>
 </div>
 <div class="mcbox">
 <h3>ULTIMO RISULTATO • IN CASA</h3>
