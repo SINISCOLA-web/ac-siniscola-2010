@@ -73,3 +73,44 @@ griglia.appendChild(b);
 })();
 </script>
   </body></html>
+<script>
+(function(){
+document.addEventListener("click",function(e){
+const b=e.target.closest("button.photo");
+if(!b)return;
+e.preventDefault();
+e.stopImmediatePropagation();
+const foto=[...document.querySelectorAll("button.photo")];
+let n=foto.indexOf(b);
+if(n<0)return;
+const sf=document.createElement("div");
+sf.style.cssText="position:fixed;inset:0;z-index:999999;background:#020917f5;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;padding:15px";
+const img=document.createElement("img");
+img.style.cssText="max-width:100%;max-height:72vh;object-fit:contain";
+const comandi=document.createElement("div");
+comandi.style.cssText="display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;max-width:650px";
+const prima=document.createElement("button");
+prima.textContent="← Precedente";
+const dopo=document.createElement("button");
+dopo.textContent="Successiva →";
+const conta=document.createElement("strong");
+const chiudi=document.createElement("button");
+chiudi.textContent="× Chiudi";
+[prima,dopo,chiudi].forEach(x=>x.style.cssText="background:#17467b;color:white;border:1px solid #8bcaff;border-radius:9px;padding:12px 8px;font-weight:bold");
+function mostra(){
+const el=foto[n];
+const imm=el.querySelector("img");
+const bg=getComputedStyle(el).backgroundImage;
+img.src=imm?.getAttribute("src")||bg.match(/url\(["']?(.*?)["']?\)/)?.[1]||"";
+conta.textContent=(n+1)+" / "+foto.length;
+}
+prima.onclick=()=>{n=(n-1+foto.length)%foto.length;mostra()};
+dopo.onclick=()=>{n=(n+1)%foto.length;mostra()};
+chiudi.onclick=()=>sf.remove();
+comandi.append(prima,conta,dopo);
+sf.append(chiudi,img,comandi);
+document.body.appendChild(sf);
+mostra();
+},true);
+})();
+</script>
